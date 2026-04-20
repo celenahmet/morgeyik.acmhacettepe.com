@@ -298,7 +298,7 @@ const Home: React.FC<{
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentAwardSlide, setCurrentAwardSlide] = useState(0);
   const [sessionSeconds, setSessionSeconds] = useState(0);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', category: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', surname: '', email: '', phone: '', category: '', message: '' });
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
@@ -361,6 +361,7 @@ const Home: React.FC<{
     const payload = { 
       ...formData, 
       name: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name, 
+      surname: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.surname,
       email: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.email,
       phone: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone,
       isAnonymous, 
@@ -373,7 +374,7 @@ const Home: React.FC<{
     try {
       await addDoc(collection(db, "MORGEYIK_Web"), payload);
       try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch (scriptErr) { console.error("Sheets error:", scriptErr); }
-      setIsSent(true); setFormData({ name: '', email: '', phone: '', category: '', message: '' }); setTimeout(() => setIsSent(false), 5000);
+      setIsSent(true); setFormData({ name: '', surname: '', email: '', phone: '', category: '', message: '' }); setTimeout(() => setIsSent(false), 5000);
     } catch (err) { alert(lang === 'TR' ? "Bir hata oluştu." : "An error occurred."); } finally { setIsSubmitting(false); }
   };
 
@@ -563,18 +564,23 @@ const Home: React.FC<{
       </section>
 
       <section id="contact" className="py-40 px-6 bg-[#0B0614]">
-        <div className="container mx-auto flex flex-col lg:flex-row gap-8 items-stretch justify-center">
-          <div className="flex-[6.5] flex flex-col">
-            <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase border-l-[6px] border-[#6A1BB1] pl-6 mb-8">{t.contact.title}</h2>
-            <div className="bg-[#1A0E2E]/80 border border-white/5 rounded-[2rem] p-8 flex-grow">
-              {isSent ? (<div className="flex-grow flex flex-col items-center justify-center p-16 text-green-500 font-black"><CheckCircle2 size={48} className="mb-4" />{lang === 'TR' ? 'MESAJINIZ İLETİLDİ!' : 'MESSAGE SENT!'}</div>) : (
-                <form className="space-y-5" onSubmit={handleFormSubmit}>
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name} disabled={isAnonymous} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formName} />
-                    <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.email} disabled={isAnonymous} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formEmail} />
-                    <input value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone} disabled={isAnonymous} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full md:col-span-2 p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Telefon Numaranız (İsteğe Bağlı)' : 'Phone Number (Optional)'} />
-                  </div>
-                  <select required value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]">
+        <div className="container mx-auto">
+          <div className="mb-12 border-l-[6px] border-[#6A1BB1] pl-6">
+            <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase">{t.contact.title}</h2>
+          </div>
+          
+          <div className="flex flex-col lg:flex-row gap-8 items-stretch justify-center">
+            <div className="flex-[6.5] flex flex-col">
+              <div className="bg-[#1A0E2E]/80 border border-white/5 rounded-[2rem] p-8 flex-grow">
+                {isSent ? (<div className="flex-grow flex flex-col items-center justify-center p-16 text-green-500 font-black"><CheckCircle2 size={48} className="mb-4" />{lang === 'TR' ? 'MESAJINIZ İLETİLDİ!' : 'MESSAGE SENT!'}</div>) : (
+                  <form className="space-y-5" onSubmit={handleFormSubmit}>
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name} disabled={isAnonymous} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'İsim' : 'Name'} />
+                      <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.surname} disabled={isAnonymous} onChange={(e) => setFormData({...formData, surname: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Soyisim' : 'Surname'} />
+                      <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.email} disabled={isAnonymous} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formEmail} />
+                      <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone} disabled={isAnonymous} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Telefon Numaranız' : 'Phone Number'} />
+                    </div>
+                    <select required value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]">
                     <option value="">{lang === 'TR' ? 'BİR KONU SEÇİN...' : 'SELECT CATEGORY...'}</option>
                     {["Genel", "Konuk", "Sponsor", "Katılımcı", "Geri Bildirim", "İstek / Şikayet", "Diğer"].map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -593,8 +599,7 @@ const Home: React.FC<{
               )}
             </div>
           </div>
-          <div className="flex-[4] flex flex-col pt-16 lg:pt-0">
-             <h2 className="text-4xl lg:text-6xl font-black text-transparent select-none tracking-tighter uppercase pl-6 border-l-[6px] border-transparent mb-8 hidden lg:block pointer-events-none">_</h2>
+          <div className="flex-[4] flex flex-col lg:pt-0">
              <div className="bg-gradient-to-b from-[#1A0E2E]/90 to-[#0B0614]/90 border border-white/10 rounded-[2rem] p-6 lg:p-8 flex flex-col flex-grow shadow-[0_0_50px_rgba(106,27,177,0.1)] relative overflow-hidden">
                <div className="absolute top-0 right-0 w-64 h-64 bg-[#A855F7]/10 blur-[80px] rounded-full pointer-events-none"></div>
 
@@ -617,7 +622,7 @@ const Home: React.FC<{
                           <h4 className={`font-black text-[13px] uppercase tracking-wider ${item.isCurrent ? 'text-white' : 'text-gray-200'}`}>{item.title}</h4>
                           {!item.isCurrent && <ExternalLink size={12} className="text-gray-600 group-hover:text-white transition-colors" />}
                         </div>
-                        <p className={`text-[9px] uppercase font-bold tracking-widest ${item.isCurrent ? 'text-[#D8B4FE]' : 'text-gray-500 line-clamp-1 group-hover:text-gray-300'}`}>{item.desc}</p>
+                        <p className={`text-[9px] uppercase font-bold tracking-widest ${item.isCurrent ? 'text-[#D8B4FE]' : 'text-gray-500 group-hover:text-gray-300'}`}>{item.desc}</p>
                       </div>
                     </a>
                   ))}
@@ -632,6 +637,7 @@ const Home: React.FC<{
                   <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-[#A855F7]"><Clock size={16} /></div>
                </div>
              </div>
+           </div>
           </div>
         </div>
       </section>

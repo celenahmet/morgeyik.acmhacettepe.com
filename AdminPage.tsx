@@ -65,7 +65,8 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
         "ID": sub.id,
         "Tarih": sub.timestamp,
         "Kategori": sub.category,
-        "İsim": sub.name,
+        "İsim": sub.name || '',
+        "Soyisim": sub.surname || '',
         "E-Posta": sub.email,
         "Telefon": sub.phone,
         "Mesaj": sub.message,
@@ -170,7 +171,7 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
                  </div>
                  
                  <div className="flex-grow">
-                   <div className="flex items-center gap-2 mb-2"><User size={16} className="text-[#A855F7]" /><h3 className="text-lg font-black text-white uppercase">{sub.name}</h3></div>
+                   <div className="flex items-center gap-2 mb-2"><User size={16} className="text-[#A855F7]" /><h3 className="text-lg font-black text-white uppercase">{sub.name} {sub.surname || ''}</h3></div>
                    <div className="flex flex-wrap gap-4 text-xs font-medium text-gray-400 mb-6">
                       <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><Mail size={12} className="text-gray-500"/> {sub.email}</div>
                       <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><Phone size={12} className="text-gray-500"/> {sub.phone || '-'}</div>
