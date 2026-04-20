@@ -83,7 +83,7 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
     return (
       <div className="min-h-screen bg-[#0B0614] flex items-center justify-center p-6 relative overflow-hidden">
         <div className="absolute top-10 left-10 flex items-center gap-3">
-          <img src="/assets/logo/morgeyiklogo.png" className="h-10 object-contain" alt="Mor Geyik Logo" />
+          <img src="/assets/logo/morgeyiklogo.png" className="h-20 md:h-24 object-contain" alt="Mor Geyik Logo" />
           <span className="text-white font-black uppercase tracking-widest text-xl">Admin Panel</span>
         </div>
         
@@ -124,7 +124,7 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
       <div className="max-w-7xl mx-auto">
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
           <div className="flex items-center gap-4">
-            <img src="/assets/logo/morgeyiklogo.png" className="h-12 object-contain" alt="Mor Geyik Logo" />
+            <img src="/assets/logo/morgeyiklogo.png" className="h-20 md:h-32 object-contain" alt="Mor Geyik Logo" />
             <div>
               <h1 className="text-3xl font-black text-white uppercase tracking-tighter">İletişim Formları</h1>
               <span className="text-[#A855F7] text-xs font-black uppercase tracking-widest">Mor Geyik Merkezi Yönetim</span>
