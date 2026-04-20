@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 import { Language, EventData } from './types';
-import { X, Lock, CheckCircle2 } from 'lucide-react';
+import { X, Lock, CheckCircle2, Music, Brain, Zap, Smile, Flame, Mic, Target, Star, Users, Clapperboard } from 'lucide-react';
 
 // Import our new pages
 import Home from './Home';
@@ -26,6 +26,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const highlightIcons = { music: Music, brain: Brain, zap: Zap, smile: Smile, flame: Flame, mic: Mic, target: Target, star: Star, users: Users, clapperboard: Clapperboard };
+
 const GuestModal: React.FC<{ guest: EventData, onClose: () => void, lang: Language }> = ({ guest, onClose, lang }) => {
   return (
     <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
@@ -38,8 +40,25 @@ const GuestModal: React.FC<{ guest: EventData, onClose: () => void, lang: Langua
           <div className="absolute inset-0 bg-gradient-to-r from-[#1A0E2E]/0 via-transparent to-[#1A0E2E] hidden md:block"></div>
         </div>
         <div className="p-6 md:p-12 flex-grow overflow-y-auto">
-          <div className="inline-block px-4 py-1.5 bg-[#6A1BB1]/20 border border-[#6A1BB1]/30 rounded-full text-[10px] font-black text-[#A855F7] tracking-[0.2em] uppercase mb-4">{guest.year}</div>
+          <div className="flex items-center space-x-3 mb-4">
+            <div className="inline-block px-4 py-1.5 bg-[#6A1BB1]/20 border border-[#6A1BB1]/30 rounded-full text-[10px] font-black text-[#A855F7] tracking-[0.2em] uppercase">{guest.year}</div>
+          </div>
           <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-none">{guest.guest}</h2>
+          
+          {guest.highlights && (
+            <div className="flex flex-wrap gap-3 mb-8">
+              {guest.highlights.map((h, i) => {
+                const Icon = highlightIcons[h.iconType];
+                return (
+                  <div key={i} className="flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
+                    <Icon size={14} className="text-[#A855F7]" />
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest">{h.label[lang]}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           <p className="text-gray-300 text-base md:text-lg font-medium leading-relaxed">"{guest.bio?.[lang] || guest.description[lang]}"</p>
         </div>
       </div>

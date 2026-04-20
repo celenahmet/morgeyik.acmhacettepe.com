@@ -92,6 +92,7 @@ const PAST_EVENTS: EventData[] = [
     year: "Mor Geyik'24",
     guest: "Çağrı Ergün",
     imageUrl: "https://acsdays.com/web/morgeyik/recent/cagriergun.png",
+    imagePosition: "object-center",
     description: { 
       TR: "Oyun dünyasından içerik üretimine, 'Hype' kültürünün mimarlarından teknoloji ve girişimcilik hikayeleri.", 
       EN: "Technology and entrepreneurship stories from the architects of 'Hype' culture, from gaming to content creation." 
@@ -161,6 +162,7 @@ const PAST_EVENTS: EventData[] = [
     year: "Mor Geyik'23",
     guest: "Yaşlı Amca",
     imageUrl: "https://acsdays.com/web/morgeyik/recent/yasliamca.png",
+    imagePosition: "object-center",
     description: { TR: "Alternatif rock tınılarını sahne enerjisiyle birleştiren grup dinamiği oturumu.", EN: "A session on band dynamics combining rock with stage energy." },
     industry: { TR: "ROCK & GRUP DİNAMİĞİ", EN: "ROCK & BAND DYNAMICS" },
     highlights: [
