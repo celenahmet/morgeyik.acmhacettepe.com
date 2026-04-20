@@ -387,9 +387,9 @@ const Home: React.FC<{
         <div className="absolute inset-0 bg-noise opacity-[0.03]"></div>
       </div>
 
-      <nav className="fixed top-0 left-0 w-full z-[100] py-2 lg:py-4 backdrop-blur-xl bg-black/20 border-b border-white/5 flex items-center">
+      <nav className="fixed top-0 left-0 w-full z-[100] pt-2 lg:pt-4 pb-1 lg:pb-1 backdrop-blur-xl bg-black/20 border-b border-white/5 flex items-center">
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <img src={LOGO_MOR_GEYIK} alt="Logo" className="h-16 lg:h-24 w-auto object-contain hover:opacity-80 transition-all cursor-pointer" onClick={() => navigate('/')} />
+          <img src={LOGO_MOR_GEYIK} alt="Logo" className="h-16 lg:h-24 w-auto object-contain hover:opacity-80 transition-all cursor-pointer -mb-2 lg:-mb-6" onClick={() => navigate('/')} />
           <div className="flex items-center space-x-12">
             <div className="hidden lg:flex items-center space-x-10">
               {["program", "about", "awards", "events", "vlogs", "contact"].map((id) => (
