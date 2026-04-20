@@ -662,7 +662,7 @@ const Home: React.FC<{
               <h4 className="text-white font-black text-lg mb-6 uppercase tracking-widest">{lang === 'TR' ? 'TAKİPTE KALIN' : 'STAY TUNED'}</h4>
               <p className="text-gray-400 text-xs font-medium mb-8 leading-relaxed xl:pr-10">
                 {lang === 'TR' ? 
-                  'Etkinliklerimize tüm Hacettepe ve misafir üniversite öğrencileri ücretsiz katılabilir. Sınırlı kontenjanı kaçırmamak için güncel duyuruları sosyal medya hesaplarımızdan takip edebilirsiniz.' : 
+                  'Etkinliklerimize tüm Hacettepe Üniversitesi ve diğer üniversite öğrencileri ücretsiz katılabilir. Sınırlı kontenjanları kaçırmamak için güncel duyuruları sosyal medya hesaplarımızdan takip edebilirsiniz.' : 
                   'Our events are free and open to all Hacettepe and guest university students. Follow our social media channels for announcements and limited capacity updates.'}
               </p>
               <div className="flex space-x-6">
