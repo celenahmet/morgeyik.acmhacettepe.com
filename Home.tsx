@@ -345,7 +345,7 @@ const Home: React.FC<{
     const payload = { ...formData, name: isAnonymous ? (lang === 'TR' ? "ANONİM" : "ANONYMOUS") : formData.name, isAnonymous, timestamp: new Date().toLocaleString('tr-TR'), id: Date.now() };
     setIsSubmitting(true);
     try {
-      await addDoc(collection(db, "submissions"), payload);
+      await addDoc(collection(db, "MORGEYIK_Web"), payload);
       try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch (scriptErr) { console.error("Sheets error:", scriptErr); }
       setIsSent(true); setFormData({ name: '', email: '', phone: '', category: '', message: '' }); setTimeout(() => setIsSent(false), 5000);
     } catch (err) { alert(lang === 'TR' ? "Bir hata oluştu." : "An error occurred."); } finally { setIsSubmitting(false); }
@@ -535,15 +535,22 @@ const Home: React.FC<{
                   <div className="grid md:grid-cols-2 gap-5">
                     <input required value={isAnonymous ? "ANONİM" : formData.name} disabled={isAnonymous} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formName} />
                     <input required value={isAnonymous ? "ANONYMOUS@GIZLI.COM" : formData.email} disabled={isAnonymous} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formEmail} />
+                    <input value={isAnonymous ? "GİZLİ" : formData.phone} disabled={isAnonymous} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full md:col-span-2 p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Telefon Numaranız (İsteğe Bağlı)' : 'Phone Number (Optional)'} />
                   </div>
                   <select required value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]">
                     <option value="">{lang === 'TR' ? 'BİR KONU SEÇİN...' : 'SELECT CATEGORY...'}</option>
-                    {["Guest", "Sponsor", "Feedback", "General"].map(c => <option key={c} value={c}>{c}</option>)}
+                    {["Genel", "Konuk", "Sponsor", "Katılımcı", "Geri Bildirim", "İstek / Şikayet", "Diğer"].map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                   <textarea required rows={4} value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7] resize-none" placeholder={t.contact.formMessage}></textarea>
                   <div className="flex items-center justify-between pt-4">
-                     <span onClick={() => setIsAnonymous(!isAnonymous)} className="text-[10px] font-black text-gray-500 uppercase cursor-pointer hover:text-white transition-all">{isAnonymous ? '✓ ANONİM MOD AKTİF' : '○ ANONİM GÖNDER'}</span>
-                     <button disabled={isSubmitting} className="px-12 py-4 bg-[#6A1BB1] text-white rounded-xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl">{isSubmitting ? '...' : (lang === 'TR' ? 'GÖNDER' : 'SEND')}</button>
+                     <button type="button" onClick={() => setIsAnonymous(!isAnonymous)} className={`flex items-center space-x-3 px-5 py-3 rounded-xl transition-all border ${isAnonymous ? 'bg-[#A855F7]/20 border-[#A855F7] text-[#D8B4FE]' : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                       <div className={`w-5 h-5 rounded flex items-center justify-center border ${isAnonymous ? 'border-[#A855F7] bg-[#A855F7]' : 'border-gray-500'}`}>{isAnonymous && <CheckCircle2 size={12} className="text-white" />}</div>
+                       <span className="text-[10px] font-black uppercase tracking-widest">{isAnonymous ? (lang === 'TR' ? 'ANONİM MOD AKTİF' : 'ANONYMOUS ACTIVE') : (lang === 'TR' ? 'ANONİM GÖNDER' : 'SEND ANONYMOUSLY')}</span>
+                     </button>
+                     <button disabled={isSubmitting} type="submit" className="px-12 py-4 bg-[#6A1BB1] text-white rounded-xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl disabled:opacity-50 flex items-center space-x-2">
+                       {isSubmitting && <Loader2 size={16} className="animate-spin" />}
+                       <span>{lang === 'TR' ? 'GÖNDER' : 'SEND'}</span>
+                     </button>
                   </div>
                 </form>
               )}

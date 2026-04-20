@@ -14,13 +14,13 @@ import FormsPage from './FormsPage';
 import { translations } from './translations';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDowu5g6kK6V2ZH1qdyH7M9BqoBAo-IP7c",
-  authDomain: "morgeyik-ec048.firebaseapp.com",
-  projectId: "morgeyik-ec048",
-  storageBucket: "morgeyik-ec048.firebasestorage.app",
-  messagingSenderId: "1082488241528",
-  appId: "1:1082488241528:web:2ae50a60c1e8e1fd319c8d",
-  measurementId: "G-16CB4BW8MK"
+  apiKey: "AIzaSyCLfFKSVDlFSOwqXZKK4GNQ64wXoPcFATo",
+  authDomain: "contactforms-2f87a.firebaseapp.com",
+  projectId: "contactforms-2f87a",
+  storageBucket: "contactforms-2f87a.firebasestorage.app",
+  messagingSenderId: "257411095702",
+  appId: "1:257411095702:web:9d6aa447d457e62d68b6b7",
+  measurementId: "G-H9M272ER6F"
 };
 
 const app = initializeApp(firebaseConfig);

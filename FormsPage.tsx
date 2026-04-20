@@ -6,22 +6,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Language } from './types';
 import { translations } from './translations';
-import { addDoc, collection, getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-
-// --- Same firebase config as App.tsx ---
-const firebaseConfig = {
-  apiKey: "AIzaSyDowu5g6kK6V2ZH1qdyH7M9BqoBAo-IP7c",
-  authDomain: "morgeyik-ec048.firebaseapp.com",
-  projectId: "morgeyik-ec048",
-  storageBucket: "morgeyik-ec048.firebasestorage.app",
-  messagingSenderId: "1082488241528",
-  appId: "1:1082488241528:web:2ae50a60c1e8e1fd319c8d",
-  measurementId: "G-16CB4BW8MK"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 const UPCOMING_EVENTS_MINI = [
   { guests: "Hayko Cepkin & Pelin Akil", date: "27 NİSAN", icon: <Users size={18} /> },
