@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import { Language, EventData } from './types';
 import { X, Lock, CheckCircle2, Music, Brain, Zap, Smile, Flame, Mic, Target, Star, Users, Clapperboard } from 'lucide-react';
 

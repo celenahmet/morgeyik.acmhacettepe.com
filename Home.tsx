@@ -9,10 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Language, EventData, OrganizerData, VlogData } from './types';
 import { translations } from './translations';
-import { 
-  addDoc, 
-  collection 
-} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { addDoc, collection } from 'firebase/firestore';
 
 // --- DATA ---
 const UPCOMING_EVENTS = [
