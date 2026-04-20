@@ -29,7 +29,7 @@ const UPCOMING_EVENTS = [
       EN: "An evening full of art, career, and inspiration awaits you in this special talk featuring legendary artist Hayko Cepkin and successful actress Pelin Akil."
     },
     mapLink: "https://www.google.com/maps/search/Hacettepe+Üniversitesi+Tunçalp+Özgen+Kültür+ve+Kongre+Merkezi",
-    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Hayko+Cepkin+&+Pelin+Akil&dates=20260427T150000Z/20260427T170000Z&details=Sanat,+kariyer+ve+ilham+dolu+söyleşi.&location=Tunçalp+Özgen+Kültür+ve+Kongre+Merkezi,+Hacettepe+Üniversitesi",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Hayko+Cepkin+&+Pelin+Akil+(ACM+Hacettepe)&dates=20260427T150000Z/20260427T170000Z&details=Sanat,+kariyer+ve+ilham+dolu+söyleşi.+-+ACM+Hacettepe&location=Tunçalp+Özgen+Kültür+ve+Kongre+Merkezi,+Hacettepe+Üniversitesi",
     icon: <Users size={24} />
   },
   {
@@ -45,7 +45,7 @@ const UPCOMING_EVENTS = [
       EN: "A sincere talk program on the music world and band dynamics will be held with the participation of the Madrigal group."
     },
     mapLink: "https://www.google.com/maps/search/Hacettepe+Üniversitesi+Mehmet+Akif+Ersoy+Salonu",
-    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Madrigal+Söyleşisi&dates=20260428T110000Z/20260428T130000Z&details=Müzik+dünyasına+ve+grup+dinamiğine+dair+samimi+bir+sohbet.&location=Mehmet+Akif+Ersoy+Salonu,+Hacettepe+Üniversitesi",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Madrigal+Söyleşisi+(ACM+Hacettepe)&dates=20260428T110000Z/20260428T130000Z&details=Müzik+dünyasına+ve+grup+dinamiğine+dair+samimi+bir+sohbet.+-+ACM+Hacettepe&location=Mehmet+Akif+Ersoy+Salonu,+Hacettepe+Üniversitesi",
     icon: <Music size={24} />
   }
 ];
