@@ -9,7 +9,7 @@ import { X, Lock, CheckCircle2, Music, Brain, Zap, Smile, Flame, Mic, Target, St
 // Import our new pages
 import Home from './Home';
 import FormsPage from './FormsPage';
-import AdminPage from './Admin';
+import AdminPage from './AdminPage';
 
 // --- Shared Modals (kept in App for global availability) ---
 import { translations } from './translations';
