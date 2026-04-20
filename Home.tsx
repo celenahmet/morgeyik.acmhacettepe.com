@@ -593,20 +593,43 @@ const Home: React.FC<{
               )}
             </div>
           </div>
-          <div className="flex-[3.5] flex flex-col pt-24 lg:pt-0">
-             <div className="bg-[#1A0E2E]/80 border border-white/5 rounded-[2rem] p-8 flex-grow">
-               <h2 className="text-xl font-black text-white mb-8 border-b border-[#6A1BB1]/40 pb-2 uppercase tracking-tighter">{t.contact.ecosystemTitle}</h2>
-               <div className="space-y-4">
+          <div className="flex-[4] flex flex-col pt-16 lg:pt-0">
+             <h2 className="text-4xl lg:text-6xl font-black text-transparent select-none tracking-tighter uppercase pl-6 border-l-[6px] border-transparent mb-8 hidden lg:block pointer-events-none">_</h2>
+             <div className="bg-gradient-to-b from-[#1A0E2E]/90 to-[#0B0614]/90 border border-white/10 rounded-[2rem] p-6 lg:p-8 flex flex-col flex-grow shadow-[0_0_50px_rgba(106,27,177,0.1)] relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-[#A855F7]/10 blur-[80px] rounded-full pointer-events-none"></div>
+
+               <div className="flex items-center space-x-4 mb-8 pb-4 border-b border-white/10 relative z-10">
+                 <div className="p-3 bg-[#6A1BB1]/20 text-[#A855F7] rounded-xl border border-[#6A1BB1]/30"><Globe size={20} /></div>
+                 <div>
+                   <h2 className="text-xl font-black text-white uppercase tracking-tighter">{t.contact.ecosystemTitle}</h2>
+                   <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{lang === 'TR' ? 'HACETTEPE ÜNİVERSİTESİ' : 'HACETTEPE UNIVERSITY'}</div>
+                 </div>
+               </div>
+
+               <div className="space-y-3 flex-grow relative z-10">
                   {ecosystemSubItems.map((item, i) => (
-                    <a key={i} href={item.link} target="_blank" rel="noopener noreferrer" className={`block p-4 rounded-xl border border-white/5 transition-all ${item.isCurrent ? 'bg-[#A855F7]/10 border-[#A855F7]/30' : 'hover:bg-white/5'}`}>
-                      <div className="flex items-center justify-between"><h4 className="font-black text-xs text-white">{item.title}</h4>{!item.isCurrent && <ExternalLink size={12} className="text-gray-500" />}</div>
-                      <p className="text-[10px] text-gray-500 mt-1 uppercase font-bold tracking-widest">{item.desc}</p>
+                    <a key={i} href={item.link} target="_blank" rel="noopener noreferrer" className={`group relative flex items-center p-4 rounded-xl border transition-all duration-300 ${item.isCurrent ? 'bg-[#6A1BB1]/20 border-[#A855F7]/40 shadow-[0_0_20px_rgba(168,85,247,0.15)]' : 'bg-black/30 border-white/5 hover:border-[#6A1BB1]/50 hover:bg-[#6A1BB1]/10 hover:-translate-y-0.5'}`}>
+                      <div className={`mr-4 p-2.5 rounded-lg transition-colors ${item.isCurrent ? 'bg-[#A855F7] text-white shadow-lg shadow-[#A855F7]/30' : 'bg-white/5 text-gray-400 group-hover:text-[#A855F7]'}`}>
+                        {item.icon}
+                      </div>
+                      <div className="flex-grow">
+                        <div className="flex items-center justify-between mb-0.5">
+                          <h4 className={`font-black text-[13px] uppercase tracking-wider ${item.isCurrent ? 'text-white' : 'text-gray-200'}`}>{item.title}</h4>
+                          {!item.isCurrent && <ExternalLink size={12} className="text-gray-600 group-hover:text-white transition-colors" />}
+                        </div>
+                        <p className={`text-[9px] uppercase font-bold tracking-widest ${item.isCurrent ? 'text-[#D8B4FE]' : 'text-gray-500 line-clamp-1 group-hover:text-gray-300'}`}>{item.desc}</p>
+                      </div>
                     </a>
                   ))}
                </div>
-               <div className="mt-12 bg-black/30 p-6 rounded-2xl border border-white/5">
-                  <span className="text-[8px] font-black text-gray-600 block mb-2 uppercase tracking-widest">{lang === 'TR' ? 'OTURUM SÜRESİ' : 'SESSION TIME'}</span>
-                  <span className="text-2xl font-mono text-white tracking-widest">{formatSessionTime(sessionSeconds)}</span>
+
+               <div className="mt-8 bg-black/40 p-5 rounded-2xl border border-white/5 flex items-center justify-between relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6A1BB1]/0 via-[#6A1BB1]/10 to-[#6A1BB1]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                  <div>
+                    <span className="text-[9px] font-black text-gray-500 block mb-1 uppercase tracking-widest">{lang === 'TR' ? 'OTURUM SÜRESİ' : 'SESSION TIME'}</span>
+                    <span className="text-xl font-mono font-black text-white tracking-[0.2em]">{formatSessionTime(sessionSeconds)}</span>
+                  </div>
+                  <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-[#A855F7]"><Clock size={16} /></div>
                </div>
              </div>
           </div>
