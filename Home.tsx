@@ -348,7 +348,15 @@ const Home: React.FC<{
     if (formData.message.length < 5) return alert(lang === 'TR' ? "Mesaj çok kısa." : "Message too short.");
     if (!formData.category) return alert(lang === 'TR' ? "Lütfen bir kategori seçiniz." : "Please select a category.");
 
-    const payload = { ...formData, name: isAnonymous ? (lang === 'TR' ? "ANONİM" : "ANONYMOUS") : formData.name, isAnonymous, timestamp: new Date().toLocaleString('tr-TR'), id: Date.now() };
+    const payload = { 
+      ...formData, 
+      name: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name, 
+      email: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.email,
+      phone: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone,
+      isAnonymous, 
+      timestamp: new Date().toLocaleString('tr-TR'), 
+      id: Date.now() 
+    };
     setIsSubmitting(true);
     try {
       await addDoc(collection(db, "MORGEYIK_Web"), payload);
@@ -550,9 +558,9 @@ const Home: React.FC<{
               {isSent ? (<div className="flex-grow flex flex-col items-center justify-center p-16 text-green-500 font-black"><CheckCircle2 size={48} className="mb-4" />{lang === 'TR' ? 'MESAJINIZ İLETİLDİ!' : 'MESSAGE SENT!'}</div>) : (
                 <form className="space-y-5" onSubmit={handleFormSubmit}>
                   <div className="grid md:grid-cols-2 gap-5">
-                    <input required value={isAnonymous ? "ANONİM" : formData.name} disabled={isAnonymous} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formName} />
-                    <input required value={isAnonymous ? "ANONYMOUS@GIZLI.COM" : formData.email} disabled={isAnonymous} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formEmail} />
-                    <input value={isAnonymous ? "GİZLİ" : formData.phone} disabled={isAnonymous} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full md:col-span-2 p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Telefon Numaranız (İsteğe Bağlı)' : 'Phone Number (Optional)'} />
+                    <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name} disabled={isAnonymous} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formName} />
+                    <input required={!isAnonymous} value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.email} disabled={isAnonymous} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={t.contact.formEmail} />
+                    <input value={isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone} disabled={isAnonymous} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full md:col-span-2 p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]" placeholder={lang === 'TR' ? 'Telefon Numaranız (İsteğe Bağlı)' : 'Phone Number (Optional)'} />
                   </div>
                   <select required value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full p-4 bg-black/40 border border-white/10 rounded-xl text-white outline-none focus:border-[#A855F7]">
                     <option value="">{lang === 'TR' ? 'BİR KONU SEÇİN...' : 'SELECT CATEGORY...'}</option>
