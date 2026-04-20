@@ -80,6 +80,16 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
      XLSX.writeFile(wb, "morgeyik_iletisim_form.xlsx");
   };
   
+  const getOS = (ua: string) => {
+    if (!ua) return "Bilinmiyor";
+    if (ua.includes("Windows")) return "Windows";
+    if (ua.includes("Mac OS X")) return "macOS";
+    if (ua.includes("Android")) return "Android";
+    if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
+    if (ua.includes("Linux")) return "Linux";
+    return "Diğer";
+  };
+  
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#0B0614] flex items-center justify-center p-6 relative overflow-hidden">
@@ -155,38 +165,63 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
              <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">HENÜZ HİÇBİR KAYIT YOK</span>
           </div>
         ) : (
-          <div className="grid gap-6">
-            {submissions.map((sub, i) => (
-              <div key={i} className="bg-[#1A0E2E]/80 border border-white/10 rounded-2xl p-6 flex flex-col md:flex-row gap-6 shadow-xl transition-all hover:-translate-y-1 hover:border-[#6A1BB1]/30">
-                 <div className="flex flex-wrap md:flex-col gap-4 min-w-[200px] border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-6 shrink-0">
-                    <div>
-                      <div className="text-[9px] font-black uppercase text-gray-500 tracking-widest mb-1">KATEGORİ</div>
-                      <div className="inline-block px-3 py-1 bg-[#6A1BB1]/20 text-[#A855F7] rounded uppercase font-black text-[10px] tracking-widest border border-[#6A1BB1]/30">{sub.category}</div>
-                    </div>
-                    <div>
-                      <div className="text-[9px] font-black uppercase text-gray-500 tracking-widest mb-1">GÖNDERİM TARİHİ</div>
-                      <div className="flex items-center gap-1.5 text-white text-xs font-bold bg-white/5 px-2 py-1.5 rounded"><Calendar size={12} className="text-gray-400" />{sub.timestamp}</div>
-                    </div>
-                    {sub.isAnonymous && <div className="inline-block px-2 py-1 bg-white/10 text-white rounded uppercase font-bold text-[9px] tracking-widest border border-white/20 self-start"><ShieldCheck size={10} className="inline mr-1" /> ANONİM</div>}
-                 </div>
-                 
-                 <div className="flex-grow">
-                   <div className="flex items-center gap-2 mb-2"><User size={16} className="text-[#A855F7]" /><h3 className="text-lg font-black text-white uppercase">{sub.name} {sub.surname || ''}</h3></div>
-                   <div className="flex flex-wrap gap-4 text-xs font-medium text-gray-400 mb-6">
-                      <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><Mail size={12} className="text-gray-500"/> {sub.email}</div>
-                      <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/5"><Phone size={12} className="text-gray-500"/> {sub.phone || '-'}</div>
-                   </div>
-                   <div className="bg-black/20 border border-white/5 rounded-xl p-5 mb-4">
-                     <p className="text-gray-300 whitespace-pre-wrap font-medium">{sub.message}</p>
-                   </div>
-                   
-                   <div className="flex flex-wrap gap-4 text-[10px] font-medium text-gray-600 mt-4 border-t border-white/5 pt-4">
-                     <div className="flex items-center gap-1 uppercase font-bold tracking-widest"><Globe size={10}/> IP: <span className="text-white ml-0.5">{sub.ip || 'Bilinmiyor'}</span></div>
-                     <div className="flex items-center gap-1 uppercase font-bold tracking-widest max-w-sm truncate"><Box size={10}/> Cihaz: <span className="text-white ml-0.5 truncate">{sub.platform || 'Bilinmiyor'}</span></div>
-                   </div>
-                 </div>
-              </div>
-            ))}
+          <div className="bg-[#1A0E2E]/80 border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl backdrop-blur-xl">
+             <div className="overflow-x-auto">
+               <table className="w-full text-left border-collapse">
+                 <thead>
+                   <tr className="bg-white/5 border-b border-white/10">
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Gönderen</th>
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Kategori</th>
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest text-center">Tarih</th>
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest text-center">OS / IP</th>
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Mesaj</th>
+                   </tr>
+                 </thead>
+                 <tbody className="divide-y divide-white/5">
+                   {submissions.map((sub, i) => (
+                     <tr key={i} className="hover:bg-white/[0.02] transition-colors group">
+                       <td className="p-6">
+                         <div className="flex items-center gap-3">
+                           <div className="w-10 h-10 rounded-full bg-[#6A1BB1]/20 flex items-center justify-center text-[#A855F7] border border-[#6A1BB1]/30">
+                             <User size={18} />
+                           </div>
+                           <div>
+                             <div className="text-sm font-bold text-white flex items-center gap-2 uppercase tracking-tight">
+                               {sub.name} {sub.surname || ''}
+                               {sub.isAnonymous && <ShieldCheck size={12} className="text-gray-500" title="Anonim" />}
+                             </div>
+                             <div className="text-[10px] text-gray-500 font-medium lowercase tracking-wide">{sub.email}</div>
+                             <div className="text-[10px] text-gray-500 font-medium tracking-wide">{sub.phone}</div>
+                           </div>
+                         </div>
+                       </td>
+                       <td className="p-6">
+                         <span className="inline-block px-3 py-1 bg-[#6A1BB1]/20 text-[#A855F7] rounded-lg uppercase font-black text-[9px] tracking-widest border border-[#6A1BB1]/20">
+                           {sub.category}
+                         </span>
+                       </td>
+                       <td className="p-6 text-center">
+                         <div className="text-[11px] font-bold text-gray-300">{sub.timestamp?.split(' ')[0]}</div>
+                         <div className="text-[9px] font-medium text-gray-500 uppercase">{sub.timestamp?.split(' ')[1]}</div>
+                       </td>
+                       <td className="p-6 text-center">
+                         <div className="flex flex-col items-center gap-1.5">
+                           <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md text-[9px] font-black text-gray-300 uppercase tracking-tighter">
+                             {getOS(sub.platform)}
+                           </span>
+                           <span className="text-[9px] font-mono text-gray-500">{sub.ip || '0.0.0.0'}</span>
+                         </div>
+                       </td>
+                       <td className="p-6 min-w-[300px]">
+                         <div className="bg-black/20 border border-white/5 rounded-xl p-4 text-xs text-gray-300 font-medium leading-relaxed group-hover:border-[#6A1BB1]/30 transition-colors max-h-[100px] overflow-y-auto custom-scrollbar">
+                           {sub.message}
+                         </div>
+                       </td>
+                     </tr>
+                   ))}
+                 </tbody>
+               </table>
+             </div>
           </div>
         )}
       </div>
