@@ -407,42 +407,44 @@ const Home: React.FC<{
             <h2 className="text-5xl lg:text-[5rem] font-black text-white tracking-tighter uppercase mb-6">{t.upcoming.title}</h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 max-w-5xl mx-auto">
             {UPCOMING_EVENTS.map((event, idx) => (
               <div key={idx} className="group relative">
-                <div className="relative bg-[#1A0E2E]/80 border border-white/10 rounded-[3rem] overflow-hidden transition-all duration-700 hover:-translate-y-4 flex flex-col h-full shadow-2xl">
-                  <div className="relative aspect-[4/5] sm:aspect-video lg:h-[400px] overflow-hidden">
+                <div className="relative bg-[#1A0E2E]/80 border border-white/10 rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:-translate-y-3 flex flex-col h-full shadow-2xl">
+                  <div className="relative aspect-[4/5] sm:aspect-video lg:h-[320px] overflow-hidden">
                     <img src={event.imageUrl} className={`w-full h-full object-cover ${event.imagePosition || 'object-center'} group-hover:scale-110 transition-all duration-1000`} alt={event.guests} />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1A0E2E] via-transparent to-black/30"></div>
                   </div>
-                    <div className="p-8 lg:p-12 flex flex-col flex-grow">
-                      <div className="flex flex-wrap items-center gap-4 mb-8">
-                        <div className="flex items-center space-x-2 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
-                          <Calendar size={14} className="text-[#A855F7]" />
-                          <span className="text-[11px] font-black text-white uppercase tracking-wider">{event.date}</span>
+                    <div className="p-6 lg:p-10 flex flex-col flex-grow">
+                      <div className="flex flex-wrap items-center gap-3 mb-6">
+                        <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+                          <Calendar size={12} className="text-[#A855F7]" />
+                          <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.date}</span>
                         </div>
-                        <div className="flex items-center space-x-2 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
-                          <Clock size={14} className="text-[#A855F7]" />
-                          <span className="text-[11px] font-black text-white uppercase tracking-wider">{event.time}</span>
+                        <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+                          <Clock size={12} className="text-[#A855F7]" />
+                          <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.time}</span>
                         </div>
                       </div>
 
-                      <div className="flex items-center space-x-3 mb-6">
-                        <div className="w-10 h-10 bg-[#6A1BB1]/20 rounded-xl flex items-center justify-center text-[#A855F7]">{event.icon}</div>
+                      <div className="flex items-center space-x-3 mb-5">
+                        <div className="w-8 h-8 bg-[#6A1BB1]/20 rounded-lg flex items-center justify-center text-[#A855F7]">
+                           {React.cloneElement(event.icon as React.ReactElement, { size: 18 })}
+                        </div>
                         <div className="flex flex-col">
-                          <div className="text-[10px] font-black text-[#A855F7] uppercase tracking-[0.3em]">{event.title[lang]}</div>
-                          <div className="flex items-center space-x-1 text-gray-400 mt-1">
-                            <MapPin size={12} />
-                            <span className="text-[10px] font-bold uppercase tracking-widest">{event.location[lang]}</span>
+                          <div className="text-[9px] font-black text-[#A855F7] uppercase tracking-[0.3em]">{event.title[lang]}</div>
+                          <div className="flex items-center space-x-1 text-gray-400 mt-0.5">
+                            <MapPin size={10} />
+                            <span className="text-[9px] font-bold uppercase tracking-widest">{event.location[lang]}</span>
                           </div>
                         </div>
                       </div>
 
-                      <h3 className="text-3xl lg:text-5xl font-black text-white mb-6 uppercase tracking-tighter leading-none">{event.guests}</h3>
-                      <p className="text-gray-400 text-lg leading-relaxed mb-10 flex-grow font-medium">{event.description[lang]}</p>
+                      <h3 className="text-2xl lg:text-4xl font-black text-white mb-5 uppercase tracking-tighter leading-none">{event.guests}</h3>
+                      <p className="text-gray-400 text-base leading-relaxed mb-8 flex-grow font-medium">{event.description[lang]}</p>
                       
-                      <button onClick={() => navigate('/forms')} className="w-full bg-[#6A1BB1]/20 hover:bg-[#6A1BB1] border border-[#6A1BB1]/30 text-white py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center space-x-2 group/btn">
-                        <ExternalLink size={14} className="group-hover/btn:scale-110 transition-transform" />
+                      <button onClick={() => navigate('/forms')} className="w-full bg-[#6A1BB1]/20 hover:bg-[#6A1BB1] border border-[#6A1BB1]/30 text-white py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center space-x-2 group/btn">
+                        <ExternalLink size={12} className="group-hover/btn:scale-110 transition-transform" />
                         <span>{t.upcoming.externalApply}</span>
                       </button>
                     </div>
