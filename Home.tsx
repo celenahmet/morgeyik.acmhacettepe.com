@@ -4,7 +4,7 @@ import {
   Menu, X, Globe, Instagram, Linkedin, Youtube, 
   User, ExternalLink, Send, MapPin, ChevronRight, CheckCircle2, Sparkles,
   Gamepad2, Trophy, Code, Zap, MessageSquare, Loader2, Calendar, Music, Brain, Smile, Flame, Mic, Target, Star, Play, Clapperboard, Award, ShieldCheck, Users, Clock, AlertCircle,
-  Box, Activity, Radio, Lock, Download, Eye, Trash2, Search, Filter, Mail, Phone, Medal, Maximize2
+  Box, Activity, Radio, Lock, Download, Eye, Trash2, Search, Filter, Mail, Phone, Medal, Maximize2, Navigation, CalendarPlus
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Language, EventData, OrganizerData, VlogData } from './types';
@@ -28,6 +28,8 @@ const UPCOMING_EVENTS = [
       TR: "Efsanevi sanatçı Hayko Cepkin ve başarılı oyuncu Pelin Akil’in katılımıyla gerçekleşecek bu özel söyleşide sanat, kariyer ve ilham dolu bir akşam sizi bekliyor.",
       EN: "An evening full of art, career, and inspiration awaits you in this special talk featuring legendary artist Hayko Cepkin and successful actress Pelin Akil."
     },
+    mapLink: "https://www.google.com/maps/search/Hacettepe+Üniversitesi+Tunçalp+Özgen+Kültür+ve+Kongre+Merkezi",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Hayko+Cepkin+&+Pelin+Akil&dates=20260427T150000Z/20260427T170000Z&details=Sanat,+kariyer+ve+ilham+dolu+söyleşi.&location=Tunçalp+Özgen+Kültür+ve+Kongre+Merkezi,+Hacettepe+Üniversitesi",
     icon: <Users size={24} />
   },
   {
@@ -42,6 +44,8 @@ const UPCOMING_EVENTS = [
       TR: "Madrigal grubunun katılımıyla müzik dünyasına ve grup dinamiğine dair samimi bir sohbet programı düzenlenecektir.",
       EN: "A sincere talk program on the music world and band dynamics will be held with the participation of the Madrigal group."
     },
+    mapLink: "https://www.google.com/maps/search/Hacettepe+Üniversitesi+Mehmet+Akif+Ersoy+Salonu",
+    calendarLink: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mor+Geyik+-+Madrigal+Söyleşisi&dates=20260428T110000Z/20260428T130000Z&details=Müzik+dünyasına+ve+grup+dinamiğine+dair+samimi+bir+sohbet.&location=Mehmet+Akif+Ersoy+Salonu,+Hacettepe+Üniversitesi",
     icon: <Music size={24} />
   }
 ];
@@ -417,13 +421,24 @@ const Home: React.FC<{
                   </div>
                     <div className="p-6 lg:p-10 flex flex-col flex-grow">
                       <div className="flex flex-wrap items-center gap-3 mb-6">
-                        <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-                          <Calendar size={12} className="text-[#A855F7]" />
-                          <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.date}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+                            <Calendar size={12} className="text-[#A855F7]" />
+                            <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.date}</span>
+                          </div>
+                          <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+                            <Clock size={12} className="text-[#A855F7]" />
+                            <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.time}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-                          <Clock size={12} className="text-[#A855F7]" />
-                          <span className="text-[10px] font-black text-white uppercase tracking-wider">{event.time}</span>
+
+                        <div className="flex items-center gap-2 ml-auto">
+                          <a href={event.mapLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:border-[#6A1BB1]/50 hover:bg-[#6A1BB1]/20 transition-all hover:scale-110" title={lang === 'TR' ? "Yol Tarifi Al" : "Get Directions"}>
+                            <Navigation size={14} />
+                          </a>
+                          <a href={event.calendarLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center p-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:border-[#6A1BB1]/50 hover:bg-[#6A1BB1]/20 transition-all hover:scale-110" title={lang === 'TR' ? "Takvime Ekle" : "Add to Calendar"}>
+                            <CalendarPlus size={14} />
+                          </a>
                         </div>
                       </div>
 
