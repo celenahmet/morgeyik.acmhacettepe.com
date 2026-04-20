@@ -298,6 +298,7 @@ const Home: React.FC<{
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentAwardSlide, setCurrentAwardSlide] = useState(0);
   const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [ecoFilter, setEcoFilter] = useState<'sosyal' | 'teknik'>('sosyal');
   const [formData, setFormData] = useState({ name: '', surname: '', email: '', phone: '', category: '', message: '' });
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -603,7 +604,7 @@ const Home: React.FC<{
              <div className="bg-gradient-to-b from-[#1A0E2E]/90 to-[#0B0614]/90 border border-white/10 rounded-[2rem] p-6 lg:p-8 flex flex-col flex-grow shadow-[0_0_50px_rgba(106,27,177,0.1)] relative overflow-hidden">
                <div className="absolute top-0 right-0 w-64 h-64 bg-[#A855F7]/10 blur-[80px] rounded-full pointer-events-none"></div>
 
-               <div className="flex items-center space-x-4 mb-8 pb-4 border-b border-white/10 relative z-10">
+               <div className="flex items-center space-x-4 mb-4 pb-4 border-b border-white/10 relative z-10">
                  <div className="p-3 bg-[#6A1BB1]/20 text-[#A855F7] rounded-xl border border-[#6A1BB1]/30"><Globe size={20} /></div>
                  <div>
                    <h2 className="text-xl font-black text-white uppercase tracking-tighter">{t.contact.ecosystemTitle}</h2>
@@ -611,8 +612,18 @@ const Home: React.FC<{
                  </div>
                </div>
 
+               <div className="flex bg-black/40 p-1 rounded-xl mb-6 border border-white/5 relative z-10">
+                 <button type="button" onClick={() => setEcoFilter('sosyal')} className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${ecoFilter === 'sosyal' ? 'bg-[#6A1BB1] text-white shadow-lg' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}>{lang === 'TR' ? 'SOSYAL' : 'SOCIAL'}</button>
+                 <button type="button" onClick={() => setEcoFilter('teknik')} className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${ecoFilter === 'teknik' ? 'bg-[#6A1BB1] text-white shadow-lg' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}>{lang === 'TR' ? 'TEKNİK' : 'TECHNICAL'}</button>
+               </div>
+
                <div className="space-y-3 flex-grow relative z-10">
-                  {ecosystemSubItems.map((item, i) => (
+                  {ecosystemSubItems.filter(item => {
+                    if (item.id === 'morgeyik') return true;
+                    if (ecoFilter === 'sosyal') return item.id === 'gelisim' || item.id === 'sms';
+                    if (ecoFilter === 'teknik') return item.id === 'huprog' || item.id === 'acsdays' || item.id === 'hujam';
+                    return true;
+                  }).map((item, i) => (
                     <a key={i} href={item.link} target="_blank" rel="noopener noreferrer" className={`group relative flex items-center p-4 rounded-xl border transition-all duration-300 ${item.isCurrent ? 'bg-[#6A1BB1]/20 border-[#A855F7]/40 shadow-[0_0_20px_rgba(168,85,247,0.15)]' : 'bg-black/30 border-white/5 hover:border-[#6A1BB1]/50 hover:bg-[#6A1BB1]/10 hover:-translate-y-0.5'}`}>
                       <div className={`mr-4 p-2.5 rounded-lg transition-colors ${item.isCurrent ? 'bg-[#A855F7] text-white shadow-lg shadow-[#A855F7]/30' : 'bg-white/5 text-gray-400 group-hover:text-[#A855F7]'}`}>
                         {item.icon}
