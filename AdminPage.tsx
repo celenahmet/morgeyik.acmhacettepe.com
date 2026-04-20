@@ -93,9 +93,10 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#0B0614] flex items-center justify-center p-6 relative overflow-hidden">
-        <div className="absolute top-10 left-10 flex items-center gap-3">
-          <img src="/assets/logo/morgeyiklogo.png" className="h-20 md:h-24 object-contain" alt="Mor Geyik Logo" />
-          <span className="text-white font-black uppercase tracking-widest text-xl">Admin Panel</span>
+        <div className="absolute top-10 left-10 flex items-center gap-4">
+          <img src="/assets/logo/morgeyiklogo.png" className="h-16 md:h-20 object-contain" alt="Mor Geyik Logo" />
+          <div className="w-[1px] h-10 bg-white/10 hidden md:block"></div>
+          <img src="/assets/logo/acmhacettepelogo.png" className="h-10 md:h-12 object-contain hidden md:block" alt="ACM Logo" />
         </div>
         
         <div className="w-full max-w-md bg-[#1A0E2E]/80 border border-white/10 rounded-[2rem] p-10 flex flex-col items-center backdrop-blur-xl shadow-2xl relative z-10">
