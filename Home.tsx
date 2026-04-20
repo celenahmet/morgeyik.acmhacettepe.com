@@ -348,6 +348,16 @@ const Home: React.FC<{
     if (formData.message.length < 5) return alert(lang === 'TR' ? "Mesaj çok kısa." : "Message too short.");
     if (!formData.category) return alert(lang === 'TR' ? "Lütfen bir kategori seçiniz." : "Please select a category.");
 
+    setIsSubmitting(true);
+    let ip = "Bilinmiyor";
+    try {
+      const res = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      ip = data.ip;
+    } catch(err) {
+      console.warn("Could not fetch IP", err);
+    }
+
     const payload = { 
       ...formData, 
       name: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.name, 
@@ -355,9 +365,11 @@ const Home: React.FC<{
       phone: isAnonymous ? (lang === 'TR' ? "Anonim" : "Anonymous") : formData.phone,
       isAnonymous, 
       timestamp: new Date().toLocaleString('tr-TR'), 
-      id: Date.now() 
+      id: Date.now(),
+      ip: ip,
+      platform: navigator.userAgent
     };
-    setIsSubmitting(true);
+
     try {
       await addDoc(collection(db, "MORGEYIK_Web"), payload);
       try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', cache: 'no-cache', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); } catch (scriptErr) { console.error("Sheets error:", scriptErr); }

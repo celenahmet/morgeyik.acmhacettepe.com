@@ -9,6 +9,7 @@ import { X, Lock, CheckCircle2, Music, Brain, Zap, Smile, Flame, Mic, Target, St
 // Import our new pages
 import Home from './Home';
 import FormsPage from './FormsPage';
+import AdminPage from './Admin';
 
 // --- Shared Modals (kept in App for global availability) ---
 import { translations } from './translations';
@@ -100,6 +101,7 @@ const App: React.FC = () => {
           />
         } />
         <Route path="/forms" element={<FormsPage lang={lang} />} />
+        <Route path="/admin" element={<AdminPage db={db} />} />
       </Routes>
 
       {selectedGuest && <GuestModal guest={selectedGuest} onClose={() => setSelectedGuest(null)} lang={lang} />}
