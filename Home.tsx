@@ -496,7 +496,7 @@ const Home: React.FC<{
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {PAST_EVENTS.map((event, idx) => (
               <div key={idx} onClick={() => setSelectedGuest(event)} className="group bg-[#120B20] border border-white/5 rounded-[2.5rem] overflow-hidden transition-all hover:-translate-y-4 cursor-pointer relative">
-                <div className="aspect-[4/3] overflow-hidden"><img src={event.imageUrl} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-700" alt={event.guest} /></div>
+                <div className="aspect-[4/3] overflow-hidden"><img src={event.imageUrl} className={`w-full h-full object-cover ${event.imagePosition || 'object-top'} opacity-70 group-hover:opacity-100 transition-all duration-700`} alt={event.guest} /></div>
                 <div className="p-10 relative">
                   <div className="absolute top-0 right-10 -translate-y-1/2 bg-[#6A1BB1] text-white text-xs font-black px-6 py-3 rounded-full uppercase tracking-widest">{event.year}</div>
                   <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#6A1BB1] transition-colors">{event.guest}</h3>

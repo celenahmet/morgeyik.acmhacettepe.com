@@ -30,17 +30,23 @@ const GuestModal: React.FC<{ guest: EventData, onClose: () => void, lang: Langua
   return (
     <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" onClick={onClose}></div>
-      <div className="relative w-full max-w-4xl bg-[#1A0E2E] border border-white/10 rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
-        <button onClick={onClose} className="absolute top-6 right-6 z-[600] text-white hover:text-[#6A1BB1] transition-colors"><X size={24} /></button>
-        <div className="w-full md:w-2/5 h-64 md:h-auto"><img src={guest.imageUrl} className="w-full h-full object-cover" /></div>
-        <div className="p-8 md:p-12 flex-grow">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase">{guest.guest}</h2>
-          <p className="text-gray-300 text-lg italic italic leading-relaxed">"{guest.bio?.[lang] || guest.description[lang]}"</p>
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-[#1A0E2E] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl">
+        <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 z-[600] bg-black/50 p-2 rounded-full text-white hover:bg-[#6A1BB1] transition-all backdrop-blur-md"><X size={20} /></button>
+        <div className="w-full md:w-2/5 h-64 md:h-auto md:min-h-[450px] shrink-0 relative">
+          <img src={guest.imageUrl} className={`absolute inset-0 w-full h-full object-cover ${guest.imagePosition || 'object-top'}`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A0E2E] via-transparent to-transparent md:hidden"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1A0E2E]/0 via-transparent to-[#1A0E2E] hidden md:block"></div>
+        </div>
+        <div className="p-6 md:p-12 flex-grow overflow-y-auto">
+          <div className="inline-block px-4 py-1.5 bg-[#6A1BB1]/20 border border-[#6A1BB1]/30 rounded-full text-[10px] font-black text-[#A855F7] tracking-[0.2em] uppercase mb-4">{guest.year}</div>
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-none">{guest.guest}</h2>
+          <p className="text-gray-300 text-base md:text-lg font-medium leading-relaxed">"{guest.bio?.[lang] || guest.description[lang]}"</p>
         </div>
       </div>
     </div>
   );
 };
+
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('TR');
