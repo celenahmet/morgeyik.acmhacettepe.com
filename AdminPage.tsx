@@ -174,7 +174,7 @@ export const AdminPage: React.FC<{ db: any }> = ({ db }) => {
                      <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Gönderen</th>
                      <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Kategori</th>
                      <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest text-center">Tarih</th>
-                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest text-center">OS / IP</th>
+                     <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest text-center">OS / IPv4</th>
                      <th className="p-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">Mesaj</th>
                    </tr>
                  </thead>
